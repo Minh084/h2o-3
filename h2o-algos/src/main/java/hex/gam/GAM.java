@@ -59,7 +59,7 @@ public class GAM extends ModelBuilder<GAMModel, GAMModel.GAMParameters, GAMModel
 
   @Override
   public boolean haveMojo() {
-    return false;
+    return true;
   }
 
   public GAM(boolean startup_once) {

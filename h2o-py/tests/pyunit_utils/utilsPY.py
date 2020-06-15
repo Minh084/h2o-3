@@ -3643,6 +3643,20 @@ def build_save_model_GLM(params, x, train, respName):
     model.download_mojo(path=TMPDIR)    # save mojo
     return model
 
+def build_save_model_GAM(params, x, train, respName):
+    # build a model
+    model = H2OGeneralizedAdditiveEstimator(**params)
+    model.train(x=x, y=respName, training_frame=train)
+    # save model
+    regex = re.compile("[+\\-* !@#$%^&()={}\\[\\]|;:'\"<>,.?/]")
+    MOJONAME = regex.sub("_", model._id)
+
+    print("Downloading Java prediction model code from H2O")
+    TMPDIR = os.path.normpath(os.path.join(os.path.dirname(os.path.realpath('__file__')), "..", "results", MOJONAME))
+    os.makedirs(TMPDIR)
+    model.download_mojo(path=TMPDIR)    # save mojo
+    return model
+
 def build_save_model_GBM(params, x, train, respName):
     # build a model
     model = H2OGradientBoostingEstimator(**params)

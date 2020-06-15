@@ -695,6 +695,11 @@ public class GAMModel extends Model<GAMModel, GAMModel.GAMParameters, GAMModel.G
   }
 
   @Override
+  public GAMMojoWriter getMojo() {
+    return new GAMMojoWriter(this);
+  }
+
+  @Override
   protected Futures remove_impl(Futures fs, boolean cascade) {
     Keyed.remove(_output._gamTransformedTrainCenter, fs, true);
     super.remove_impl(fs, cascade);
